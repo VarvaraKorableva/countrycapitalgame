@@ -1,60 +1,66 @@
 import React from 'react'
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import { contriesAndCapitals } from './const'
 
 function App() {
 
   const [isSecondStep, setIsSecondStep] = React.useState(true)
-  //const [isAllButtonsBlocked, setIsAllButtonsBlocked] = React.useState(false)
-  const [clickedIndex, setClickedIndex] = React.useState(null)
-  const [clickedCapitalIndex, setClickedCapitalIndex] = React.useState(null)
+  const [clickedItem, setClickedItem] = React.useState()
+  const [clickedCapitalItem, setClickedCapitalItem] = React.useState()
 
-  const [indexOfChoice, setIndexOfChoice] = React.useState(null)
-  const [rightChoice, setRightChoice] = React.useState(false)
   const [countriesToRender, setCountriesToRender] = React.useState(Object.keys(contriesAndCapitals))
   const [capitalsToRender, setCapitalsToRender] = React.useState(Object.values(contriesAndCapitals))
+
+  const [firstChoice, setFirstChoice] = React.useState('')
+
+  const [mistake, setMistake] = React.useState(false)
+
+/*
+  const shuffleGame = () => {
+  const shuffledCountries = [...countriesToRender]
+  .sort(() => Math.random() - 0.5)
+  //.map((country) => ({...country, id: Math.random()}))
+  const shuffledCapitals = [...capitalsToRender]
+  .sort(() => Math.random() - 0.5)
+  //.map((capital) => ({...capital, id: Math.random()}))
+
+  setFirstChoice('')
+  setMistake(false)
+  
+  setCountriesToRender(shuffledCountries)
+  setCapitalsToRender(shuffledCapitals)
+}
+
+React.useEffect(() => {
+  shuffleGame()
+},[])*/
+
 
   function deleteRightChoice(index) {
     const indexToRemove = index;
     setCountriesToRender(countriesToRender.filter((item, index) => index !== indexToRemove));
     setCapitalsToRender(capitalsToRender.filter((item, index) => index !== indexToRemove));
-
-    setClickedIndex(null)
-    console.log(countriesToRender)
-    console.log(capitalsToRender)
   }
 
-  function handleCountryClick(index) {
-    setClickedIndex(index)
+  function handleCountryClick(item, index) {
+    setClickedItem(item.item)
     setIsSecondStep(false)
-
-    setIndexOfChoice(index)
-    console.log(index)
+    setFirstChoice(item)
+    setMistake(false)
   }
 
-  function handleCapitalClick(index) {
-    console.log(index);
-    //setIsAllButtonsBlocked(true);
+  function handleCapitalClick(item, index) {
+    console.log(item);
+    console.log(contriesAndCapitals[firstChoice.item])
     setIsSecondStep(true);
-    setClickedCapitalIndex(index);
-    //setRightChoice(indexOfChoice === index);
-    if (indexOfChoice === index) {
-      setRightChoice(true);
+    if(item.item == contriesAndCapitals[firstChoice.item]) {  
       deleteRightChoice(index)
-      console.log(true);
-      console.log(index)
     } else {
-      setRightChoice(false);
-      setClickedCapitalIndex(null);
+      setClickedCapitalItem(index);
+      setMistake(true)
       console.log(false);
     }
-    setTimeout(() => {
-      //setIsAllButtonsBlocked(false);
-      setIsSecondStep(false);
-      setRightChoice(false);
-      setIndexOfChoice(null);
-    }, 5000);
   }
 
   return (
@@ -63,12 +69,8 @@ function App() {
       <div className="btn-container">
         {countriesToRender.map((item, index) => (
           <button 
-            onClick={() => handleCountryClick(index)}
-            //className={`btn ${isClicked && 'btn_active'}`}
-            //disabled={isAllButtonsBlocked}
-            //className={`btn ${clickedIndex === index ? (rightChoice ? 'btn__green' : 'btn__red') : ''}`}
-            className={`btn ${clickedIndex === index ? 'btn_active' : ''}`}
-            
+            onClick={() => handleCountryClick({item})}
+            className={`btn ${clickedItem === item && mistake? 'btn__red': clickedItem === item? 'btn_active':''}`}
             key={index}>
             {item}
           </button>
@@ -76,8 +78,8 @@ function App() {
 
         {capitalsToRender.map((item, index) => (
           <button 
-            onClick={() => handleCapitalClick(index)}
-            className={`btn ${clickedCapitalIndex === index && rightChoice === false ? 'btn__red' : ""}`}
+            onClick={() => handleCapitalClick({item}, index)}
+            className={`btn ${clickedCapitalItem === index && mistake ? 'btn__red' : ""}`}
             disabled={isSecondStep}
             key={index + 10}>
             {item}
