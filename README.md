@@ -1,4 +1,4 @@
-# https://varvarakorableva.github.io/countrycapitalgame/
+### https://varvarakorableva.github.io/countrycapitalgame/
 
 # Getting Started with Create React App
 
