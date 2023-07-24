@@ -1,0 +1,32 @@
+.country-capital-game__btn-container {
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+  
+.country-capital-game__btn {
+    width: 200px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: #282c34;
+    color: #fff;
+    margin: 5px;
+    cursor: pointer;
+}
+  
+.country-capital-game__btn:hover {
+    height: 44px;
+    border: 2px solid #fff;
+}
+  
+.country-capital-game__btn_active {
+    background-color: #0000ff;
+    border: none;
+    color: #282c34;
+}
+  
+.country-capital-game__btn-red { 
+    background-color: red;
+}

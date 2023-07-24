@@ -1,4 +1,4 @@
-.App {
+.app {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -7,35 +7,30 @@
   justify-content: center;
 }
 
-.btn-container {
-  width: 450px;
+.app__play-again-btn-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.btn {
-  width: 200px;
-  height: 40px;
+.app__play-again-btn {
   border-radius: 50px;
-  background-color: #282c34;
+  border: 2px solid #fff;
+  background-color: transparent;
+  width: 150px;
+  height: 40px;
   color: #fff;
-  margin: 5px;
+  transition: 0.7s;
+  margin-top: 30px;
   cursor: pointer;
 }
 
-.btn:hover {
-  height: 44px;
-  border: 2px solid #fff;
+.app__play-again-btn:hover {
+  color: #111;
+  background-color: #fff;
+  opacity: 0.7;
+  transition: 0.7s;
 }
 
-.btn_active {
-  background-color: #0000ff;
-  border: none;
-  color: #282c34;
-}
 
-.btn__red { 
-  background-color: red;
-}

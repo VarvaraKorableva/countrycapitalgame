@@ -1,18 +1,26 @@
 import React from 'react'
-
-//import './GameField.css';
+import './CountryCapitalGame.css';
 
 function CountryCapitalGame({ 
     countriesToRender, handleCountryClick, clickedItem, mistake,
     capitalsToRender, handleCapitalClick, clickedCapitalItem, isSecondStep
-}) {
-  
+}) 
+
+{
+   function onCountryClick(item) {
+      handleCountryClick(item)
+   }
+
+   function onCapitalClick(item) {
+      handleCapitalClick(item)
+   }
+
     return ( 
-        <div className="btn-container">
+        <div className="country-capital-game__btn-container">
         {countriesToRender.map((item, index) => (
           <button 
-            onClick={() => handleCountryClick({item})}
-            className={`btn ${clickedItem === item && mistake? 'btn__red': clickedItem === item? 'btn_active':''}`}
+            onClick={() => onCountryClick({item})}
+            className={`country-capital-game__btn ${clickedItem === item && mistake? 'country-capital-game__btn-red': clickedItem === item? 'country-capital-game__btn_active':''}`}
             key={index}>
             {item}
           </button>
@@ -20,8 +28,8 @@ function CountryCapitalGame({
 
         {capitalsToRender.map((item, index) => (
           <button 
-            onClick={() => handleCapitalClick({item}, index)}
-            className={`btn ${clickedCapitalItem === index && mistake ? 'btn__red' : ""}`}
+            onClick={() => onCapitalClick({item})}
+            className={`country-capital-game__btn ${clickedCapitalItem === item && mistake ? 'country-capital-game__btn-red' : ""}`}
             disabled={isSecondStep}
             key={index + 10}>
             {item}
