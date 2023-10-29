@@ -1,7 +1,8 @@
 import React from 'react'
 import './App.css';
-import { contriesAndCapitals } from './const'
+import { contriesAndCapitals, additionOfTwo, additionOfThree, additionOfFour, additionOfTen } from './const'
 import CountryCapitalGame from './Components/CountryCapitalGame/CountryCapitalGame'
+import SelectionButtons from './Components/Buttons/SelectionButtons'
 
 function App() {
 
@@ -70,6 +71,7 @@ function App() {
 
   return (
     <div className="app">
+      <SelectionButtons></SelectionButtons>
       {countriesToRender.length?
       <CountryCapitalGame
         countriesToRender={countriesToRender}

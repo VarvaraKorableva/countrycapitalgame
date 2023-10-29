@@ -1,9 +1,11 @@
 .country-capital-game__btn-container {
     width: 450px;
     display: flex;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
+    /*flex-direction: column;*/
     align-items: center;
     justify-content: center;
+    
 }
   
 .country-capital-game__btn {
@@ -29,4 +31,8 @@
   
 .country-capital-game__btn-red { 
     background-color: red;
+}
+
+.country-capital-game__columl-container {
+    
 }

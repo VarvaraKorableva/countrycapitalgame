@@ -1,0 +1,29 @@
+.selection-buttons__oneButton {
+    width: 150px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid rgb(50, 66, 190);
+    background-color: rgb(14, 14, 105);
+    display: flex;
+    margin: 5px;
+    cursor: pointer;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+}
+
+.selection-buttons__oneButton:hover {
+    opacity: 1;
+}
+
+.selection-buttons__oneButton_clicked {
+    background-color: white;
+    color: black;
+}
+
+.selection-buttons__container {
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+}
