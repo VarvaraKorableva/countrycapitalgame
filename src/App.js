@@ -10,30 +10,67 @@ function App() {
   const [clickedItem, setClickedItem] = React.useState(null)
   const [clickedCapitalItem, setClickedCapitalItem] = React.useState(null)
   const [isAgainBtnCliked, setIsAgainBtnCliked] = React.useState(false)
-  const [countriesToRender, setCountriesToRender] = React.useState(Object.keys(contriesAndCapitals))
-  const [capitalsToRender, setCapitalsToRender] = React.useState(Object.values(contriesAndCapitals))
   const [firstChoice, setFirstChoice] = React.useState('')
   const [mistake, setMistake] = React.useState(false)
+  const [gameStarted, setGameStarted] = React.useState(false)
 
-  const shuffleGame = () => {
-    const shuffledCountries = [...countriesToRender]
+  const [obtToCompareBad, setObtToCompareBad] = React.useState(additionOfTwo)
+
+  const [keysToRender, setKeysToRender] = React.useState(Object.keys(additionOfTwo))
+  const [valuesToRender, setValuesToRender] = React.useState(Object.values(additionOfTwo))
+
+  function handleChoose(num) {
+    if (num == 2) {
+      setKeysToRender(Object.keys(additionOfTwo))
+      setValuesToRender(Object.values(additionOfTwo))
+      setObtToCompareBad(additionOfTwo)
+      setIsAgainBtnCliked(true)
+      setClickedItem(null)
+      //console.log(keysToRender)
+      shuffleGame()
+    } if (num == 3) {
+      setKeysToRender(Object.keys(additionOfThree))
+      setValuesToRender(Object.values(additionOfThree))
+      setObtToCompareBad(additionOfThree)
+      setIsAgainBtnCliked(true)
+      setClickedItem(null)
+      //shuffleGame()
+    } if (num == 4) {
+      setKeysToRender(Object.keys(additionOfFour))
+      setValuesToRender(Object.values(additionOfFour))
+      setObtToCompareBad(additionOfFour)
+      setIsAgainBtnCliked(true)
+      setClickedItem(null)
+      //shuffleGame()
+    } if (num == 10) {
+      setKeysToRender(Object.keys(additionOfTen))
+      setValuesToRender(Object.values(additionOfTen))
+      setObtToCompareBad(additionOfTen)
+      setIsAgainBtnCliked(true)
+      setClickedItem(null)
+      //shuffleGame()
+    }
+  }
+
+  function shuffleGame() {
+    const shuffledKeys = [...keysToRender]
       .sort(() => Math.random() - 0.5)
 
-    const shuffledCapitals = [...capitalsToRender]
+    const shuffledValues = [...valuesToRender]
       .sort(() => Math.random() - 0.5)
-
+      
     setFirstChoice('')
     setMistake(false)
-  
-    setCountriesToRender(shuffledCountries)
-    setCapitalsToRender(shuffledCapitals)
+    setKeysToRender(shuffledKeys)
+    setValuesToRender(shuffledValues)
   }
 
   function playAgain() {
     setIsAgainBtnCliked(true)
-    setCountriesToRender(Object.keys(contriesAndCapitals))
-    setCapitalsToRender(Object.values(contriesAndCapitals))
     setClickedItem(null)
+    setKeysToRender(Object.keys(additionOfTwo))
+    setValuesToRender(Object.values(additionOfTwo))
+    setObtToCompareBad(additionOfTwo)
   }
 
   React.useEffect(() => {
@@ -45,41 +82,47 @@ function App() {
   },[isAgainBtnCliked])
 
 
-  function deleteRightChoice(capital, country) {
-    setCountriesToRender(countriesToRender.filter((item) => item !== country));
-    setCapitalsToRender(capitalsToRender.filter((item) => item !== capital));
+  function deleteRightChoice(key, value) {
+    setKeysToRender(keysToRender.filter((item) => item !== value));
+    setValuesToRender(valuesToRender.filter((item) => item !== key));
   }
 
-  function handleCountryClick(item) {
-    setClickedItem(item.item)
-    setIsSecondStep(false)
-    setFirstChoice(item)
-    setMistake(false)
-  }
-
-  function handleCapitalClick(item) {
-    setIsSecondStep(true);
-    if(item.item == contriesAndCapitals[firstChoice.item]) {  
-      deleteRightChoice(item.item, firstChoice.item)
-      
-    } else {
-      setClickedCapitalItem(item.item);
-      setMistake(true)
-      console.log(false);
-    }
+    function handleClick(item, objToCompare) {
+      if(gameStarted) {
+        setIsSecondStep(true);
+          if(item.item == objToCompare[firstChoice.item]) {  
+            deleteRightChoice(item.item, firstChoice.item)
+            setGameStarted(false)
+          } else {
+            setClickedCapitalItem(item.item);
+            setMistake(true)
+            console.log(false);
+            setGameStarted(false)
+          }
+      }else{
+        setClickedItem(item.item)
+        setIsSecondStep(false)
+        setGameStarted(true)
+        setFirstChoice(item)
+        setMistake(false)
+        console.log(objToCompare)
+        console.log(item)
+      }
   }
 
   return (
     <div className="app">
-      <SelectionButtons></SelectionButtons>
-      {countriesToRender.length?
+      <SelectionButtons
+        handleChoose={handleChoose}
+      ></SelectionButtons>
+      {keysToRender.length?
       <CountryCapitalGame
-        countriesToRender={countriesToRender}
-        handleCountryClick={handleCountryClick}
+        keysToRender={keysToRender}
+        obtToCompareBad={obtToCompareBad}
         clickedItem={clickedItem}
         mistake={mistake}
-        capitalsToRender={capitalsToRender}
-        handleCapitalClick={handleCapitalClick}
+        valuesToRender={valuesToRender}
+        handleClick={handleClick}
         clickedCapitalItem={clickedCapitalItem}
         isSecondStep={isSecondStep}
       />
