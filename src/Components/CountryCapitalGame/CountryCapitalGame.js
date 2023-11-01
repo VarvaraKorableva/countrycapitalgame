@@ -2,20 +2,12 @@ import React from 'react'
 import './CountryCapitalGame.css'
 
 function CountryCapitalGame({ 
-    keysToRender, handleCountryClick, clickedItem, mistake,
-    valuesToRender, handleCapitalClick, clickedCapitalItem, isSecondStep,
+    keysToRender, clickedItem, mistake,
+    valuesToRender, clickedCapitalItem, isSecondStep,
     handleClick, obtToCompareBad
 }) 
 
-{ /*
-   function onCountryClick(item) {
-      handleCountryClick(item)
-   }
-
-   function onCapitalClick(item) {
-      handleCapitalClick(item)
-   }*/
-
+{
    function onItemClick(item, objToCompare) {
       handleClick(item, objToCompare)
       console.log(objToCompare)
@@ -27,7 +19,6 @@ function CountryCapitalGame({
             {valuesToRender.map((item, index) => (
               <button 
                 onClick={() => onItemClick({item}, obtToCompareBad)}
-                //onClick={() => onAddClike(2, additionOfTwo)}
                 className={`country-capital-game__btn ${clickedCapitalItem === item && mistake ? 'country-capital-game__btn-red' : ""}`}
                 disabled={isSecondStep}
                 key={index + 10}>

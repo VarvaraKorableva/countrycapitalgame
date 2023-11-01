@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css';
-import { contriesAndCapitals, additionOfTwo, additionOfThree, additionOfFour, additionOfTen } from './const'
+import { additionOfTwo, additionOfThree, additionOfFour, additionOfTen } from './const'
 import CountryCapitalGame from './Components/CountryCapitalGame/CountryCapitalGame'
 import SelectionButtons from './Components/Buttons/SelectionButtons'
 
@@ -24,35 +24,30 @@ function App() {
       setKeysToRender(Object.keys(additionOfTwo))
       setValuesToRender(Object.values(additionOfTwo))
       setObtToCompareBad(additionOfTwo)
-      setIsAgainBtnCliked(true)
       setClickedItem(null)
-      //console.log(keysToRender)
-      shuffleGame()
-    } if (num == 3) {
+      shuffleGame(Object.keys(additionOfTwo), Object.values(additionOfTwo))
+    } else if(num == 3) {
       setKeysToRender(Object.keys(additionOfThree))
       setValuesToRender(Object.values(additionOfThree))
       setObtToCompareBad(additionOfThree)
-      setIsAgainBtnCliked(true)
       setClickedItem(null)
-      //shuffleGame()
-    } if (num == 4) {
+      shuffleGame(Object.keys(additionOfThree), Object.values(additionOfThree))
+    } else if (num == 4) {
       setKeysToRender(Object.keys(additionOfFour))
       setValuesToRender(Object.values(additionOfFour))
       setObtToCompareBad(additionOfFour)
-      setIsAgainBtnCliked(true)
       setClickedItem(null)
-      //shuffleGame()
-    } if (num == 10) {
+      shuffleGame(Object.keys(additionOfFour), Object.values(additionOfFour))
+    } else if (num == 10) {
       setKeysToRender(Object.keys(additionOfTen))
       setValuesToRender(Object.values(additionOfTen))
       setObtToCompareBad(additionOfTen)
-      setIsAgainBtnCliked(true)
       setClickedItem(null)
-      //shuffleGame()
+      shuffleGame(Object.keys(additionOfTen), Object.values(additionOfTen))
     }
   }
 
-  function shuffleGame() {
+  function shuffleGame(keysToRender, valuesToRender) {
     const shuffledKeys = [...keysToRender]
       .sort(() => Math.random() - 0.5)
 
@@ -74,11 +69,11 @@ function App() {
   }
 
   React.useEffect(() => {
-    shuffleGame()
+    shuffleGame(keysToRender, valuesToRender)
   },[])
 
   React.useEffect(() => {
-  shuffleGame()
+  shuffleGame(keysToRender, valuesToRender)
   },[isAgainBtnCliked])
 
 
@@ -96,7 +91,6 @@ function App() {
           } else {
             setClickedCapitalItem(item.item);
             setMistake(true)
-            console.log(false);
             setGameStarted(false)
           }
       }else{
@@ -105,8 +99,6 @@ function App() {
         setGameStarted(true)
         setFirstChoice(item)
         setMistake(false)
-        console.log(objToCompare)
-        console.log(item)
       }
   }
 

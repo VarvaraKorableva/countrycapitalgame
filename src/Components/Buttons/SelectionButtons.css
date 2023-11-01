@@ -29,3 +29,11 @@
     margin-bottom: 20px;
     margin-top: 100px;
 }
+
+@media screen and (max-width: 700px) {
+    .selection-buttons__container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+}
